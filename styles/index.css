@@ -1,0 +1,149 @@
+@tailwind base;
+
+/* Write your own custom base styles here */
+
+/* Start purging... */
+@tailwind components;
+/* Stop purging. */
+
+/* Write you own custom component styles here */
+
+/* Start purging... */
+@tailwind utilities;
+/* Stop purging. */
+
+/* Your own custom utilities */
+
+.has-text-align-left {
+  @apply text-left;
+}
+
+.has-text-align-center {
+  @apply text-center;
+}
+
+.has-text-align-right {
+  @apply text-right;
+}
+
+.has-large-font-size {
+  @apply text-4xl;
+}
+
+.alignfull {
+  @apply w-screen relative;
+
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  max-width: 100vw;
+  right: 50%;
+}
+
+.wp-block-image img {
+  @apply max-w-full mt-2;
+}
+.wp-block-image.aligncenter {
+  @apply text-center;
+}
+.wp-block-image.alignfull img,
+.wp-block-image.alignwide img {
+  @apply w-full;
+}
+.wp-block-image .alignleft,
+.wp-block-image .alignright,
+.wp-block-image .aligncenter,
+.wp-block-image.is-resized {
+  @apply table ml-0 mr-0;
+}
+.wp-block-image .alignleft > figcaption,
+.wp-block-image .alignright > figcaption,
+.wp-block-image .aligncenter > figcaption,
+.wp-block-image.is-resized > figcaption {
+  @apply table-caption;
+
+  caption-side: bottom;
+}
+
+.wp-block-image .alignleft {
+  @apply float-left mr-4;
+}
+.wp-block-image .alignright {
+  @apply float-right ml-4;
+}
+.wp-block-image .aligncenter {
+  @apply m-auto;
+}
+
+.wp-block-button a,
+.wp-block-file a.wp-block-file__button {
+  @apply bg-blue-500 text-white no-underline py-2 px-4;
+}
+
+.wp-block-button a:hover,
+.wp-block-file a.wp-block-file__button:hover {
+  @apply bg-blue-400 cursor-pointer;
+}
+
+.wp-block-file a:first-of-type {
+  @apply mr-4;
+}
+
+.wp-block-cover {
+  @apply flex flex-wrap justify-center items-center bg-cover bg-center overflow-hidden;
+
+  min-height: 430px;
+}
+
+.wp-block-verse {
+  @apply font-sans;
+}
+
+.wp-block-media-text {
+  @apply grid grid-cols-2 gap-4;
+}
+
+.bg-vinas-de-oro {
+  background: linear-gradient(to right, #b29149 100%, #fff 0%);
+}
+
+@layer base {
+  body {
+    font-family: "Roboto", sans-serif;
+  }
+}
+
+@layer components {
+  .line-left {
+    @apply relative before:content-[''] before:absolute before:-left-4 before:-top-[1px] before:w-[1px] before:h-12 before:bg-vinas-brown-2;
+  }
+  .wp-line-left {
+    @apply [&>p:first-child]:line-left;
+  }
+  .line-x-left {
+    @apply relative before:content-[''] before:absolute before:-left-9 before:top-[calc(50%-2px)] before:w-6 before:h-[4px] before:bg-vinas-brown-2;
+  }
+  .btn-main {
+    @apply inline-block text-sm text-vinas-brown-2 border-[3px] border-vinas-brown-2 px-5 py-2 hover:bg-vinas-brown-2 hover:text-white transition-colors duration-200;
+  }
+  .btn-secundary {
+    @apply inline-block text-sm text-vinas-brown-4 border-[3px] border-vinas-brown-4 px-5 py-2 hover:bg-vinas-brown-4 hover:text-white transition-colors duration-200;
+  }
+  .shadow-vinas {
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.75);
+  }
+  /*Nav*/
+  .arrow-prev {
+    @apply [&_.swiper-button-prev]:text-vinas-brown-2 [&_.swiper-button-prev]:w-16 [&_.swiper-button-prev]:h-16 after:[&_.swiper-button-next]:text-4xl after:[&_.swiper-button-next]:font-bold after:[&_.swiper-button-next]:content-['prev'] [&_.swiper-button-prev]:absolute [&_.swiper-button-prev]:right-[10px] [&_.swiper-button-prev]:left-auto [&_.swiper-button-prev]:z-20 [&_.swiper-button-prev]:top-[calc(50%-64px)] hover:[&_.swiper-button-prev]:text-white hover:[&_.swiper-button-prev]:bg-vinas-brown-2 [&_.swiper-button-prev]:select-none;
+  }
+  .arrow-next {
+    @apply [&_.swiper-button-next]:text-vinas-brown-2 [&_.swiper-button-next]:w-16 [&_.swiper-button-next]:h-16 [&_.swiper-button-next]:bg-vinas-brown-3 after:[&_.swiper-button-next]:text-4xl after:[&_.swiper-button-next]:font-bold after:[&_.swiper-button-next]:content-['next'] hover:[&_.swiper-button-next]:text-white hover:[&_.swiper-button-next]:bg-vinas-brown-2 [&_.swiper-button-next]:select-none;
+  }
+  .cont-nav {
+    @apply arrow-prev arrow-next;
+  }
+}
+
+:focus-visible {
+  outline: none;
+}
