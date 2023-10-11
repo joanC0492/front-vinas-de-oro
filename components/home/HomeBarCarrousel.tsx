@@ -1,4 +1,4 @@
-import { Swiper as Carrousel, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper as Carrousel, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, A11y } from "swiper/modules";
 import Link from "next/link";
 
@@ -35,7 +35,6 @@ export const HomeBarCarrousel: React.FC<IProps> = ({ className = "" }) => {
     <div className={className}>
       <div className="cont-nav">
         <Carrousel
-          slidesPerView={1}
           spaceBetween={30}
           loop={true}
           navigation={true}
