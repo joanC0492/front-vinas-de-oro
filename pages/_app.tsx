@@ -1,11 +1,16 @@
 import { AppProps } from "next/app";
 import { GetStaticProps } from "next";
 import { getMenuHeader } from "@/lib/api";
+import { CardFloatingProvider } from "@/store/CardFloatingContext";
 import "../styles/index.css";
 import "../styles/OrigenCarrousel.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <CardFloatingProvider>
+      <Component {...pageProps} />
+    </CardFloatingProvider>
+  );
 }
 
 const getGlobalStaticProps: GetStaticProps = async () => {

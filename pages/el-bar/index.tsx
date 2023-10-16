@@ -1,10 +1,15 @@
-import { NextPage } from "next";
+import { NextPage, GetStaticProps } from "next";
 import { Layout } from "@/components/layouts";
 import { Footer, TitleSections } from "@/components/ui";
 import { ElBarCategories } from "@/components/sections/el-bar";
+import { getAllBarCategories } from "@/lib/api";
+import { NodeElement as ICategory } from "@/interfaces/el-bar";
 
+interface IProps {
+  categories: ICategory[];
+}
 const TITLE: string = "El Bar";
-const ElBarPage: NextPage = () => {
+const ElBarPage: NextPage<IProps> = ({ categories }) => {
   return (
     <>
       <Layout title={TITLE} footer={false}>
@@ -45,10 +50,27 @@ const ElBarPage: NextPage = () => {
         </div>
       </Layout>
 
-      <ElBarCategories className="bg-vinas-gray-1" />
+      <ElBarCategories className="bg-vinas-gray-1" data={categories} />
       <Footer />
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
+  let allCategories: ICategory[] = [];
+  try {
+    allCategories = await getAllBarCategories(preview);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error al obtener datos: ", error.message);
+    }
+  }
+
+  return {
+    props: {
+      categories: allCategories,
+    },
+  };
 };
 
 export default ElBarPage;

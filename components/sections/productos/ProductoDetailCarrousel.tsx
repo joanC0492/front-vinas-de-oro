@@ -1,7 +1,6 @@
-import React, { useRef } from "react";
-import { Swiper as Carrousel, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper as Carrousel, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, A11y } from "swiper/modules";
-import { Node } from "@/interfaces/newsBySlug";
+import { ElBarCarrousel } from "@/interfaces/el-bar-category";
 
 // Import Swiper styles
 import "swiper/css";
@@ -9,23 +8,10 @@ import "swiper/css/navigation";
 
 interface IProps {
   className?: string;
+  data: ElBarCarrousel[];
 }
-const data = [
-  {
-    id: 1,
-    sourceUrl:
-      "https://www.piscovinasdeoro.com.pe/img/productos/galeria/pmv-g-1%20(1).jpg",
-    title: "Imagen 1",
-  },
-  {
-    id: 2,
-    sourceUrl:
-      "https://www.piscovinasdeoro.com.pe/img/productos/galeria/pmv-g-1%20(5).jpg",
-    title: "Imagen 2",
-  },
-];
-
 export const ProductoDetailCarrousel: React.FC<IProps> = ({
+  data,
   className = "",
 }) => {
   return (
@@ -38,12 +24,12 @@ export const ProductoDetailCarrousel: React.FC<IProps> = ({
           navigation={true}
           modules={[Pagination, Navigation, A11y]}
           className="mySwiper">
-          {data.map(({ id, sourceUrl, title }) => (
+          {data.map(({ id, img }) => (
             <SwiperSlide key={id}>
               <div>
                 <img
-                  src={sourceUrl}
-                  alt={title}
+                  src={img}
+                  alt={id}
                   className="mx-auto max-w-full 2xl:max-w-[80%]"
                 />
               </div>
