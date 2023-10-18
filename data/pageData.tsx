@@ -59,24 +59,24 @@ export const pageData = {
         data: [
           {
             id: 1,
-            title: "Línea Premium",
-            sourceUrl:
-              "https://www.piscovinasdeoro.com.pe/img/productos/Mosto_verde.jpg",
-            slug: "",
-          },
-          {
-            id: 2,
-            title: "Colección Premium Mosto Verde",
-            sourceUrl:
-              "https://www.piscovinasdeoro.com.pe/img/productos/pisco_premiun.jpg",
-            slug: "",
-          },
-          {
-            id: 3,
             title: "Ediciones Especiales",
             sourceUrl:
               "https://www.piscovinasdeoro.com.pe/img/productos/ediciones_especiales.jpg",
-            slug: "",
+            slug: "/productos/categoria/ediciones-especiales",
+          },
+          {
+            id: 2,
+            title: "Línea Premium",
+            sourceUrl:
+              "https://www.piscovinasdeoro.com.pe/img/productos/Mosto_verde.jpg",
+            slug: "/productos/categoria/linea-premium",
+          },
+          {
+            id: 3,
+            title: "Colección Premium Mosto Verde",
+            sourceUrl:
+              "https://www.piscovinasdeoro.com.pe/img/productos/pisco_premiun.jpg",
+            slug: "/productos/categoria/mosto-verde",
           },
         ],
       },

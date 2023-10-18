@@ -53,7 +53,7 @@ export const HomeNoticias: React.FC<IProps> = ({ className }) => {
                       </p>
                       <p className="text-lg">{description}</p>
                       <div className="mt-6">
-                        <Link href={slug} className="btn-secundary">
+                        <Link href={"/noticias"} className="btn-secundary">
                           LEER MÁS
                         </Link>
                       </div>
