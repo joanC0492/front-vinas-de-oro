@@ -1,10 +1,15 @@
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import { Layout } from "@/components/layouts";
 import { TitleSections, Footer } from "@/components/ui";
 import { ProductoCategories } from "@/components/sections/productos";
+import { getAllProductCategories } from "@/lib/api";
+import { NodeElement as ICategory } from "@/interfaces/el-bar";
 
+interface IProps {
+  categories: ICategory[];
+}
 const TITLE: string = "Productos";
-const Productos: NextPage = () => {
+const Productos: NextPage<IProps> = ({ categories }) => {
   return (
     <>
       <Layout title={TITLE} footer={false}>
@@ -40,10 +45,26 @@ const Productos: NextPage = () => {
           </div>
         </div>
       </Layout>
-      <ProductoCategories className="bg-vinas-gray-1" />
+      <ProductoCategories className="bg-vinas-gray-1" data={categories} />
       <Footer />
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
+  let allCategories: ICategory[] = [];
+  try {
+    allCategories = await getAllProductCategories();
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error al obtener datos: ", error.message);
+    }
+  }
+  return {
+    props: {
+      categories: allCategories,
+    },
+  };
 };
 
 export default Productos;

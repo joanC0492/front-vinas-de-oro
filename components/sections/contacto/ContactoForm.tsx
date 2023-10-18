@@ -51,8 +51,7 @@ export const ContactoForm = ({ className = "" }: IProps) => {
           <div className="lg:col-start-2 xl:col-start-3 2xl:col-start-4 | col-span-12 lg:col-span-10 xl:col-span-8 2xl:col-span-6">
             <Formik
               initialValues={initialValues}
-              onSubmit={(values, { resetForm }) => {
-                console.log(values);
+              onSubmit={(values, { resetForm }) => {                
                 setAlert(true);
                 resetForm();
               }}

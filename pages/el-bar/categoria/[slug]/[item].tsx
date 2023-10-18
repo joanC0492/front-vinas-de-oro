@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { Layout } from "@/components/layouts";
 import {
@@ -6,15 +7,14 @@ import {
 } from "@/components/sections/productos";
 import { CardFloating, TitleSections } from "@/components/ui";
 import { CardRecetaBar } from "@/components/receta";
-import { CardFloatingProps } from "@/interfaces/menu-card";
 import {
   getAllBarByCategory,
   getBarSlugs,
   getElBarMenuFloating,
 } from "@/lib/api";
-import { ElBarCategoryPage } from "@/interfaces/el-bar-category";
-import { useEffect, useState } from "react";
 import { useCardFloatingContext } from "@/store/CardFloatingContext";
+import { CardFloatingProps } from "@/interfaces/menu-card";
+import { ElBarCategoryPage } from "@/interfaces/el-bar-category";
 
 interface IProps {
   elBarMenuFloating: CardFloatingProps;
@@ -30,7 +30,9 @@ const ElBarCateogriaItemPage: NextPage<IProps> = ({
   const { title: titleBar, carrousel, content } = elbar[0];
 
   useEffect(() => {
-    if (isEmpty) {
+    const isOtherPage: boolean =
+      !isEmpty && dataMenuFloating.title !== elBarMenuFloating.title;
+    if (isEmpty || isOtherPage) {
       addDataMenu(elBarMenuFloating);
     }
   }, []);

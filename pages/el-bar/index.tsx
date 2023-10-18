@@ -65,7 +65,6 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       console.error("Error al obtener datos: ", error.message);
     }
   }
-
   return {
     props: {
       categories: allCategories,

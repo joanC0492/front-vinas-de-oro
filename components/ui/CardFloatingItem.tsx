@@ -3,6 +3,8 @@ import { Add as MoreIcon, Remove as LessIcon } from "@mui/icons-material";
 import { ActiveItemCardFloating } from "./ActiveItemCardFloating";
 import { CardFloatingCategory } from "@/interfaces/menu-card";
 import { useCardFloatingContext } from "@/store/CardFloatingContext";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 interface IProps {
   category: CardFloatingCategory;
@@ -10,6 +12,16 @@ interface IProps {
 }
 export const CardFloatingItem = ({ category, index }: IProps) => {
   const { updateDataMenuActiveItem } = useCardFloatingContext();
+  const { asPath } = useRouter();
+
+  useEffect(() => {
+    const categorySlug = category.slug.split("/").reverse()[0];
+    const [item, slug] = asPath.split("/").reverse();
+    if ([item, slug].includes(categorySlug)) {      
+      updateDataMenuActiveItem(index);
+    }
+  }, []);
+
   return (
     <li className="mb-1">
       <div>

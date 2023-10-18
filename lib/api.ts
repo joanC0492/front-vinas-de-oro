@@ -11,6 +11,15 @@ import { ElBarMenuResponse } from "@/interfaces/responses/el-bar-menu-response";
 import { getElBarMenuFloatingAdapter } from "@/adapters/elBarMenuFloating.adapter";
 import { ElBarResponse } from "@/interfaces/responses/el-bar-response";
 import { getBarSlugsAdapter } from "@/adapters/elBarSlugs.adapter";
+import { ProductoMenuResponse } from "@/interfaces/responses/producto-menu-response";
+import { getProductoMenuFloatingAdapter } from "@/adapters/productoMenuFloating.adapter";
+import { ProductoSlugsResponse } from "@/interfaces/responses/producto-slug-response";
+import { getProductoSlugsAdapter } from "@/adapters/productoSlugs.adapter";
+import { ProductoCategorySlugsResponse } from "@/interfaces/responses/producto-category-slug-response";
+import { getProductoCategorySlugsAdapter } from "@/adapters/productoCategorySlugs.adapter";
+import { ProductCategoryPageResponse } from "@/interfaces/responses/product-response.interface";
+import { getAllProductCategoryAdapter } from "@/adapters/productCategory.adapter";
+import { ProductCategoryResponse } from "@/interfaces/responses/product-category-all-response";
 
 const API_URL = process.env.WORDPRESS_API_URL;
 
@@ -133,6 +142,29 @@ export async function getAllBarCategories(preview: boolean) {
     }
   );
   return data.elBarCategorias.nodes;
+}
+
+export async function getAllProductCategories() {
+  const data: ProductCategoryResponse = await fetchAPI(
+    `
+    query getAllProductCategories {
+      productosCategorias{
+        nodes{
+          id
+          slug
+          name
+          image{
+            node{
+              title
+              guid
+            }
+          }
+        }
+      }
+    }
+    `
+  );
+  return data.productosCategorias.nodes;
 }
 
 export async function getAllBarByCategory(slug: string, item?: string) {
@@ -304,4 +336,122 @@ export async function getElBarMenuFloating() {
     `
   );
   return getElBarMenuFloatingAdapter(data);
+}
+
+export async function getProductoMenuFloating() {
+  const data: ProductoMenuResponse = await fetchAPI(
+    `
+    query getProductoMenuFloating {
+      productosCategorias {
+        nodes {
+          id
+          name
+          slug
+          productoss{
+            nodes{
+              id
+              title
+              slug
+            }
+          }
+        }
+      }
+    }
+    `
+  );
+  return getProductoMenuFloatingAdapter(data);
+}
+
+export async function getProductoSlugs() {
+  const data: ProductoSlugsResponse = await fetchAPI(`
+  query getProductoSlugs {
+    productoss(first: 50){
+      nodes{
+        slug
+        productosCategorias{
+          nodes{
+            slug
+          }
+        }
+      }
+    }
+  }
+  `);
+
+  return getProductoSlugsAdapter(data);
+}
+
+export async function getProductoCategorySlugs() {
+  const data: ProductoCategorySlugsResponse = await fetchAPI(`
+  query getProductoCategorySlugs {
+    productosCategorias(first: 50) {
+      nodes {
+        slug
+      }
+    }
+  }
+  `);
+  return getProductoCategorySlugsAdapter(data);
+}
+
+export async function getAllProductCategory(slug: string, item?: string) {
+  const data: ProductCategoryPageResponse = await fetchAPI(
+    `
+    query getAllProductCategory {
+      productosCategorias(first: 50, where: {slug: "${slug}"}) {
+        nodes {
+          name
+          description
+          slug
+          productoss{
+            nodes{
+              id
+              title
+              slug
+              content
+              featuredImage{
+                node{
+                  sourceUrl
+                }
+              }
+              galeria{
+                nodes{
+                  id
+                  guid
+                }
+              }
+              receta{
+                node{
+                  id
+                  title
+                  featuredImage{
+                    node{
+                      sourceUrl
+                    }
+                  }
+                  preparation
+                  slug
+                  elBarCategorias{
+                    nodes{
+                      slug
+                    }
+                  }
+                }
+              }          
+            }
+          }
+        }
+      }
+    }
+    `
+  );
+
+  let result = getAllProductCategoryAdapter(data);
+  if (item) {
+    const newProduct = result.product.find(
+      (prod) => prod.slug.split("/").reverse()[0] === item
+    );
+    result = { ...result, product: [newProduct!] };
+  }
+  return result;
 }

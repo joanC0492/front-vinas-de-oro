@@ -25,11 +25,13 @@ const ElBarCategoriaPage: NextPage<IProps> = ({
   const { title, elbar } = elBarCategoryPage;
 
   useEffect(() => {
-    if (isEmpty) {
+    const isOtherPage: boolean =
+      !isEmpty && dataMenuFloating.title !== elBarMenuFloating.title;
+    if (isEmpty || isOtherPage) {
       addDataMenu(elBarMenuFloating);
     }
   }, []);
-  
+
   return (
     <Layout title={`El Bar | ${title}`} banner={false}>
       <div className="container py-12">
@@ -45,7 +47,7 @@ const ElBarCategoriaPage: NextPage<IProps> = ({
           <div className="col-start-1 md:col-start-3 xl:col-start-4 | col-span-12 md:col-span-8 xl:col-span-6 2xl:col-span-6">
             <TitleSections
               title={`El Bar | ${title}`}
-              subtitle="Línea Premium"
+              subtitle="Recetas"
               className="my-4 | pl-8 md:pl-0"
               line
             />
